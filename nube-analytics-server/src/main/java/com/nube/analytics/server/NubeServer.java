@@ -6,13 +6,13 @@ import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
-import org.springframework.boot.context.embedded.MultiPartConfigFactory;
+import org.springframework.boot.context.embedded.MultipartConfigFactory;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.ImportResource;
 import org.springframework.context.annotation.PropertySource;
+import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
 /**
  * Spring boot to start server on the fly and run an app. Parameters: --debug to
@@ -23,6 +23,7 @@ import org.springframework.context.annotation.PropertySource;
  * 
  */
 @Configuration
+@EnableWebMvc	
 @EnableAutoConfiguration
 @PropertySource(value = {"classpath:application.properties", "classpath:nube-analytics.properties"})
 @ImportResource(value = {"classpath:spring/*.xml"})
@@ -47,7 +48,7 @@ public class NubeServer {
 	@Bean
 	MultipartConfigElement multipartConfigElement() {
 
-		MultiPartConfigFactory factory = new MultiPartConfigFactory();
+		MultipartConfigFactory factory = new MultipartConfigFactory();
 		factory.setMaxFileSize(fileMaxSize);
 		factory.setMaxRequestSize(fileMaxSize);
 		return factory.createMultipartConfig();
